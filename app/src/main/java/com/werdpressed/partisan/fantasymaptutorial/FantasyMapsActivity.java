@@ -1,5 +1,6 @@
 package com.werdpressed.partisan.fantasymaptutorial;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -11,6 +12,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.maps.model.TileProvider;
+import com.werdpressed.partisan.fantasymaptutorial.utils.UserInterfaceUtils;
 
 public class FantasyMapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -20,6 +22,13 @@ public class FantasyMapsActivity extends AppCompatActivity implements OnMapReady
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        final int version = Build.VERSION.SDK_INT;
+
+        if (version >= Build.VERSION_CODES.JELLY_BEAN) {
+            getWindow().getDecorView().setSystemUiVisibility(UserInterfaceUtils.getUiFlags(version));
+        }
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
